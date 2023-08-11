@@ -1,0 +1,25 @@
+{
+  "name": "fake-bitgod",
+  "version": "1.0.0",
+  "description": "Create your stamp of a fake \"bitgod\" in blockchain gasless and without owned account",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivanmmurciaua/fake-bitgod.git"
+  },
+  "keywords": [
+    "erc4337"
+  ],
+  "author": "ivanmmurciaua",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivanmmurciaua/fake-bitgod/issues"
+  },
+  "homepage": "https://github.com/ivanmmurciaua/fake-bitgod#readme",
+  "dependencies": {
+    "hardhat": "^2.17.1"
+  }
+}
