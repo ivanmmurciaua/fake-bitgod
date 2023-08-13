@@ -24,7 +24,8 @@ export default function Home() {
   const [events, setEvents] = useState<string[]>([
     `A sample application to demonstrate how to integrate self-custodial\nsocial login and transacting with Web3Auth and userop.js.`,
   ]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [disabledd, setDisabled] = useState(false);
 
   const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL;
   const pmUrl = process.env.NEXT_PUBLIC_PAYMASTER_URL;
@@ -67,7 +68,7 @@ export default function Home() {
   
   useEffect(() => {
     const init = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
         const provider = new JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
         const network = await provider.getNetwork();
@@ -142,7 +143,6 @@ export default function Home() {
     if (!web3authProvider) {
       throw new Error("web3authprovider not initialized yet");
     }
-
     setAuthorized(web3auth);
   };
 
@@ -165,6 +165,7 @@ export default function Home() {
     if (!account) {
       throw new Error("Account not initialized");
     }
+    setDisabled(true);
     addEvent("Sending transaction...");
 
     const client = await Client.init(rpcUrl);
@@ -192,6 +193,7 @@ export default function Home() {
     addEvent("Waiting for transaction...");
     const ev = await res.wait();
     addEvent(`Transaction hash: ${ev?.transactionHash ?? null}`);
+    setDisabled(true);
   };
   
   if(account){
@@ -209,7 +211,7 @@ export default function Home() {
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <div></div>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          {idToken ? (
+          {idToken && account ? (
           <div>
             <div className="flex flex-col items-center pt-8">
               <button
@@ -236,10 +238,11 @@ export default function Home() {
                   <div className="block whitespace-pre-wrap">                    
                     <button
                       type="button"
+                      disabled={disabledd}
                       onClick={sendTransaction}
                       className="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     >
-                      Get Stamp
+                      {disabledd ? 'Please wait...' : 'Get Stamp'}
                     </button>
                   </div>
                 </div>
